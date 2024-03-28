@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: order-book
+
+orderBook:
+  inputDirectory: "src/test/resources/inputDirectory"
+  outputDirectory: "src/test/resources/outputDirectory"

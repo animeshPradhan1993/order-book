@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: order-book
+
+orderBook:
+  inputDirectory: "/Users/animeshpradhan/Downloads/inputDirectory"
+  outputDirectory: "/Users/animeshpradhan/Downloads/outputDirectory"
