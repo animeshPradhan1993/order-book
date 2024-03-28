@@ -1,4 +1,9 @@
-This is a spring boot application written to verify the orders at the end of a trading session.
+This is a spring boot application written to verify the orders at the end of a trading session and maintain an Order book for the pening order.
+
+The assumptions are
+1. All the orders are for the same product.
+2. We will receive one file at the end of trading session and need to verify all the orders from that file.
+3. Each input file will be considered a new session and will be handled individually.
 
 This application comes with maven wrapper so no local installation of maven is required. Although local installation Java 17 would be required to compile the code.
 
