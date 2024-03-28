@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OrderFileWriterTest {
+public class OrderExecutorTests {
     @Test
     public void testOrderList() throws IOException, NoSuchAlgorithmException {
         List<Order> orderList = OrderFileReader.createOrderListFromInputFile(new File("src/test/resources/test1.txt"));

@@ -3,6 +3,7 @@ package com.bitvavo.orderbook.config;
 import com.bitvavo.orderbook.event.listener.FileCreationListener;
 import com.bitvavo.orderbook.observer.FileWatcher;
 import jakarta.annotation.PostConstruct;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,20 @@ import org.springframework.util.StringUtils;
 import java.io.File;
 
 @Component
+
 public class ListenerInitializer {
 
     @Autowired
     private FileCreationListener fileCreationListener;
     @Autowired
+    @Setter
     private DirectoryConfig directoryConfig;
     private static Logger logger = LoggerFactory.getLogger(FileCreationListener.class);
     private static String INPUT = "Input";
     private static String OUTPUT = "Output";
 
     @PostConstruct
-    void init() {
+   public void init() {
         checkEmptyDirectory(directoryConfig.getInputDirectory(), INPUT);
         checkEmptyDirectory(directoryConfig.getOutputDirectory(), OUTPUT);
 
@@ -34,8 +37,8 @@ public class ListenerInitializer {
         checkIsDirectory(outputDirectory, OUTPUT);
 
         if (outputDirectory.getAbsolutePath().equals(inputDirectory.getAbsolutePath())) {
-            logger.error("Output directory  and input directory can not be same");
-            throw new RuntimeException("Please configure separate input and output directories.");
+            logger.error("Output directory and Input directory can not be same");
+            throw new RuntimeException("Please configure separate Input and Output directories.");
         }
         FileWatcher watcher = new FileWatcher(inputDirectory);
         watcher.addListener(fileCreationListener).watch();
