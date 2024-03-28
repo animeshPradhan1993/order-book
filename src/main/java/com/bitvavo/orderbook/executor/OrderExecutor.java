@@ -1,4 +1,4 @@
-package com.bitvavo.orderbook.writer;
+package com.bitvavo.orderbook.executor;
 
 import com.bitvavo.orderbook.model.Order;
 import com.bitvavo.orderbook.model.OrderBook;
@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.PriorityQueue;
 
-public class OrderBookFileWriter {
-    private static Logger logger = LoggerFactory.getLogger(OrderBookFileWriter.class);
+public class OrderExecutor {
+    private static Logger logger = LoggerFactory.getLogger(OrderExecutor.class);
 
+    /*this method executes the aggressive order and
+    calls the methods to maintain the orderBook.*/
     public static void writeToDestination(List<Order> orderList, String destination) {
         logger.info("Starting to write  to file: {}", destination);
         FileWriter myWriter = null;
@@ -35,7 +37,7 @@ public class OrderBookFileWriter {
         }
         logger.info("Successfully written file: {}", destination);
     }
-
+    /*this method writes pending orders to the orderBook.*/
     private static void writeOrderBookToFile(FileWriter writer, PriorityQueue<Order> buyQueue, PriorityQueue<Order> sellQueue, String destination) {
         int reqLength = Math.max(buyQueue.size(), sellQueue.size());
         for (int i = 0; i < reqLength; i++) {
@@ -59,7 +61,8 @@ public class OrderBookFileWriter {
         }
     }
 
-    private static OrderBook queueAndProcessOrders(List<Order> orderList, FileWriter writer, String destination)  {
+    /*this method executes aggressive order and queues all pending orders.*/
+    private static OrderBook queueAndProcessOrders(List<Order> orderList, FileWriter writer, String destination) {
         OrderBook orderBook = new OrderBook();
         for (Order order : orderList) {
             OrderType type = order.getSide();
@@ -71,7 +74,7 @@ public class OrderBookFileWriter {
         }
         return orderBook;
     }
-
+    /*this method handles aggressive sell orders and queues all pending orders.*/
     private static void handleSellOrder(Order sellOrder, PriorityQueue<Order> buyQueue, PriorityQueue<Order> sellQueue, FileWriter writer, String destination) {
         Order buyOrder = buyQueue.peek();
         while (buyOrder != null && buyOrder.getPrice() >= sellOrder.getPrice() && sellOrder.getQuantity() > 0) {
@@ -94,7 +97,7 @@ public class OrderBookFileWriter {
             sellQueue.offer(sellOrder);
         }
     }
-
+    /*this method handles aggressive buy orders and queues all pending orders.*/
     private static void handleBuyOrder(Order buyOrder, PriorityQueue<Order> buyQueue, PriorityQueue<Order> sellQueue, FileWriter writer, String destination) {
         Order sellOrder = sellQueue.peek();
         while (sellOrder != null && buyOrder.getPrice() >= sellOrder.getPrice() && buyOrder.getQuantity() > 0) {
@@ -117,7 +120,7 @@ public class OrderBookFileWriter {
             buyQueue.offer(buyOrder);
         }
     }
-
+    /*this method writes executed trades to output file.*/
     private static void writeTradesToFile(FileWriter writer, Order aggressiveOrder, Order restingOrder, Integer price, Integer quantity, String destination) {
         try {
             writer.write("trade " + aggressiveOrder.getOrderId() + "," + restingOrder.getOrderId() + "," + price + "," + quantity);
