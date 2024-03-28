@@ -1,5 +1,7 @@
 This is a spring boot application written to verify the orders at the end of a trading session.
 
+This application comes with maven wrapper so no local installation of maven is required. Although local installation Java 17 would be required to compile the code.
+
 The application will read a txt file from a directory and upload the results to another directory.
 
 Both the directories need to be defined by the User.
