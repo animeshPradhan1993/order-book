@@ -14,6 +14,7 @@ Also make sure the input and output directories are different to avoid processin
 
 
 To build the project use the maven wrapper ./mvnw clean install
+
 Before running the application make sure the input and the output directories are provided.
 
 to run the application use maven wrapper and run as a springboot app using command (Please replace the directory locations to location on your local file System)
