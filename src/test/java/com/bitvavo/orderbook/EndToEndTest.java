@@ -1,6 +1,5 @@
 package com.bitvavo.orderbook;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,12 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +32,7 @@ public class EndToEndTest {
     @CsvFileSource(resources = "/csvSources/testSource.csv", numLinesToSkip = 0)
     public void E2ETests(String fileName,String outputFileName, String expectedHash) throws IOException, NoSuchAlgorithmException, InterruptedException {
         moveFileToFolder(fileName);
-        Thread.sleep(9000);
+        Thread.sleep(9500);
         assertEquals(expectedHash, TestUtils.getmD5("src/test/resources/outputDirectory/"+outputFileName));
 
     }
