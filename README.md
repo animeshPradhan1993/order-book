@@ -24,8 +24,9 @@ To build the project use the maven wrapper ./mvnw clean install
 
 Before running the application make sure the input and the output directories are provided.
 
-to run the application use maven wrapper and run as a springboot app using command (Please replace the directory locations to location on your local file System).
+To run the application use maven wrapper and run as a springboot app using command mentioned below this line (Please replace the directory locations to location on your local file System).
 
 ./mvnw spring-boot:run -Dspring-boot.run.arguments="--order-book.input-directory=/Users/animeshpradhan/Downloads/inputDirectory --order-book.output-directory=/Users/animeshpradhan/Downloads/outputDirectory"
 
-The output will be written to the configured output directory. The file name will be the input file name prefixed by String "output_".
+The output will be written to the configured output directory. The file name will be the input file name, prefixed by String "output_".
+if the input is text.txt the output will be output_text.txt.
